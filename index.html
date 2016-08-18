@@ -82,7 +82,8 @@
 										altitudeDepth: feature.properties.altitude + " ft",
 										uniqueDesignation: feature.properties.callsign,
 										direction: feature.properties.bearing,
-										speed: feature.properties.speed + " m/s"
+										staffComments: "[" + feature.properties.device + "]",
+										speed: feature.properties.speed + " kn"
 									})
 							}
 							else {
@@ -91,7 +92,8 @@
 										size: iconSize[(SIDC).charAt(11)],
 										altitudeDepth: feature.properties.altitude + " ft",
 										uniqueDesignation: feature.properties.callsign,
-										speed: feature.properties.speed + " m/s"
+										staffComments:  "[" + feature.properties.device + "]",
+										speed: feature.properties.speed + " kn"
 									})
 
 							}
