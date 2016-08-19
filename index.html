@@ -11,13 +11,14 @@
 </head>
 
 <body>
-	<div id="mapid"></div>
-
 	<a href="https://github.com/anders-brolien/adsb-iot">
 		<div>
 			Further info
 		</div>
 	</a>
+	<div id="mapid"></div>
+
+	
 
 	<script src="https://npmcdn.com/leaflet@1.0.0-rc.2/dist/leaflet.js"></script>
 	<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
@@ -30,7 +31,7 @@
 		var mymap = L.map('mapid').setView([58.505, 12.09], 6);
 		
 		$(window).on("resize", function() {
-    $("#mapid").height($(window).height()).width($(window).width());
+    $("#mapid").height($(window).height()-100).width($(window).width());
     mymap.invalidateSize();
 }).trigger("resize");
 
@@ -112,8 +113,7 @@
 						}
 						else {
 
-
-
+if ((new Date().getTime() - feature.properties.timestamp) < 5 * 60 * 1000) {
 							var mysymbol = new MS.symbol(
 								SIDC, {
 									size: iconSize[(SIDC).charAt(11)],
@@ -126,6 +126,24 @@
 								iconUrl: mysymbol.getMarker().asImage(),
 								iconAnchor: [mysymbol.markerAnchor.x, mysymbol.markerAnchor.y],
 							});
+	
+} else {
+
+							var mysymbol = new MS.symbol(
+								SIDC, {
+									size: iconSize[(SIDC).charAt(11)],
+									uniqueDesignation: feature.properties.device,
+									staffComments: "last contact: " + moment(feature.properties.timestamp).fromNow(true) + " ago",
+								})
+
+							var myicon = L.icon({
+								iconUrl: mysymbol.getMarker().asImage(),
+								iconAnchor: [mysymbol.markerAnchor.x, mysymbol.markerAnchor.y],
+							});
+
+	
+}
+
 
 
 						}
